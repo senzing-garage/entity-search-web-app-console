@@ -77,6 +77,8 @@ RUN npm i --production
 
 # Make non-root container.
 
+RUN addgroup --gid 1004 consoleusers \
+    && useradd -u 1001 -g 1004 -m senzing -s /bin/bash
 USER 1001
 
 # Runtime execution.
