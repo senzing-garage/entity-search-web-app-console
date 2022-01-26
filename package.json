@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node run/xterm -- consoleServerUrl=\"ws://localhost:8273/app/console\""
   },
-  "author": "Ara Winters ara@gmail.com",
+  "author": "Ara Winters ara@senzing.com",
   "license": "MIT",
   "repository": {
     "type": "git",
