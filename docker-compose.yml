@@ -36,7 +36,7 @@ services:
       - ${SENZING_G2_DIR:-/opt/senzing/g2}:/opt/senzing/g2
 
   api:
-  container_name: senzing-poc-server
+    container_name: senzing-poc-server
     command:
       - -httpPort
       - "8250"
