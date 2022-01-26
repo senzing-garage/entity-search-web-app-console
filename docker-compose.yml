@@ -108,8 +108,7 @@ services:
       networks:
         - sz-api-network
       ports:
-        - '8273:8273'
-        - '4203:4200'
+        - 8273:8273
       restart: 'no'
 
 networks:
