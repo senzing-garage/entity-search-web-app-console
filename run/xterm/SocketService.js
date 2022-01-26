@@ -9,13 +9,19 @@ class SocketService {
     this.pty = null;
   }
 
-  attachServer(server) {
+  attachServer(server, options) {
     if (!server) {
       throw new Error("[error] no server to attach socket.io listener to..");
     }
-
-    const io = socketIO(server);
-    console.log("[listening] socket.io server waiting for client connections..");
+    let io;
+    if(options) {
+      io = socketIO(server, options);
+      console.log("[listening on "+ options.path +"] socket.io server waiting for client connections..");
+    } else {
+      io = socketIO(server);
+      console.log("[listening] socket.io server waiting for client connections..");
+    }
+    
     // "connection" event happens when any client connects to this io instance.
     io.on("connection", socket => {
       console.log("[connected] client connected to socket.io server", socket.id);
