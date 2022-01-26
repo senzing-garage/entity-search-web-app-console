@@ -114,6 +114,7 @@ services:
         - ${SENZING_VAR_DIR:-/var/opt/senzing}:/var/opt/senzing
       ports:
         - 8273:8273
+        
       restart: 'no'
 
 networks:
