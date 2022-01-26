@@ -113,8 +113,7 @@ services:
         - ${SENZING_G2_DIR:-/opt/senzing/g2}:/opt/senzing/g2
         - ${SENZING_VAR_DIR:-/var/opt/senzing}:/var/opt/senzing
       ports:
-        - '8273:8273'
-        - '4203:4200'
+        - 8273:8273
       restart: 'no'
 
 networks:
