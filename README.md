@@ -62,3 +62,19 @@ The short version is find a machine with network access, then:
     ```console
     sudo docker load --input senzing-entity-search-web-app-console-latest.tar
     ```
+
+### Building from Source
+
+1. Build the web app console.
+   Example:
+
+    ```console
+    sudo docker build --tag senzing/entity-search-web-app-console .
+    ```
+
+2. Run the app.
+   Example:
+
+    ```console
+    sudo docker-compose up
+    ```
