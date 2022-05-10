@@ -1,11 +1,64 @@
-ARG BASE_IMAGE=senzing/senzing-base:1.6.4
-FROM ${BASE_IMAGE}
+ARG BASE_IMAGE=debian:11.3-slim@sha256:f75d8a3ac10acdaa9be6052ea5f28bcfa56015ff02298831994bd3e6d66f7e57
 
-ENV REFRESHED_AT=2022-01-06
+# -----------------------------------------------------------------------------
+# Stage: builder
+# -----------------------------------------------------------------------------
+
+FROM ${BASE_IMAGE} AS builder
+
+# Set Shell to use for RUN commands in builder step.
+
+ENV REFRESHED_AT=2022-05-09
 
 LABEL Name="senzing/entity-search-web-app-console" \
       Maintainer="support@senzing.com" \
-      Version="1.0.0"
+      Version="1.1.0"
+
+# Run as "root" for system installation.
+
+USER root
+
+# Install packages via apt for building fio.
+
+RUN apt-get update \
+ && apt-get -y install \
+      gcc \
+      make \
+      pkg-config \
+      unzip \
+      wget \
+      && rm -rf /var/lib/apt/lists/*
+
+# Work around until Debian repos catch up to modern versions of fio.
+
+RUN mkdir /tmp/fio \
+ && cd /tmp/fio \
+ && wget https://github.com/axboe/fio/archive/refs/tags/fio-3.27.zip \
+ && unzip fio-3.27.zip \
+ && cd fio-fio-3.27/ \
+ && ./configure \
+ && make \
+ && make install \
+ && fio --version \
+ && cd \
+ && rm -rf /tmp/fio
+
+
+# -----------------------------------------------------------------------------
+# Stage: Final
+# -----------------------------------------------------------------------------
+
+# Create the runtime image.
+
+FROM ${BASE_IMAGE} AS runner
+
+ENV REFRESHED_AT=2022-05-09
+
+LABEL Name="senzing/entity-search-web-app-console" \
+      Maintainer="support@senzing.com" \
+      Version="1.1.0"
+
+# Define health check.
 
 HEALTHCHECK CMD ["/app/healthcheck.sh"]
 
@@ -17,29 +70,29 @@ USER root
 
 RUN apt-get update \
  && apt-get -y install \
-    build-essential \
-    elfutils \
-    fio \
-    htop \
-    iotop \
-    ipython3 \
-    itop \
-    less \
-    libpq-dev \
-    net-tools \
-    odbc-postgresql \
-    procps \
-    pstack \
-    python-dev \
-    python-pyodbc \
-    python-setuptools \
-    strace \
-    telnet \
-    tree \
-    unixodbc \
-    unixodbc-dev \
-    vim \
-    zip
+      curl \
+      elvis-tiny \
+      htop \
+      iotop \
+      jq \
+      less \
+      libpq-dev \
+      libssl1.1 \
+      net-tools \
+      odbcinst \
+      openssh-server \
+      postgresql-client \
+      procps \
+      python3-dev \
+      python3-pip \
+      sqlite3 \
+      strace \
+      tree \
+      unixodbc-dev \
+      unzip \
+      wget \
+      zip \
+ && apt-get clean
 
 # Install Nodejs
 RUN apt-get -y install curl software-properties-common \
@@ -55,10 +108,10 @@ RUN rm -rf /var/lib/apt/lists/*
 
 # Install packages via pip.
 
-COPY requirements.txt ./
+COPY requirements.txt .
 RUN pip3 install --upgrade pip \
  && pip3 install -r requirements.txt \
- && rm requirements.txt
+ && rm /requirements.txt
 
 # Copy files from repository.
 COPY ./rootfs /
@@ -66,14 +119,29 @@ COPY ./run /app/run
 COPY package.json /app
 COPY package-lock.json /app
 
+# Copy files from prior stages.
+
+COPY --from=builder "/usr/local/bin/fio" "/usr/local/bin/fio"
+
 # Install packages via npm
 WORKDIR /app
 #RUN npm install -g npm
 RUN npm i --production
 
-# update npm vulnerabilites
-#RUN npm -g uninstall npm
-#RUN rm -fr /usr/local/lib/node_modules/npm
+# Runtime environment variables.
+
+ENV LANGUAGE=C
+ENV LC_ALL=C.UTF-8
+ENV LD_LIBRARY_PATH=/opt/senzing/g2/lib:/opt/senzing/g2/lib/debian:/opt/IBM/db2/clidriver/lib
+ENV ODBCSYSINI=/etc/opt/senzing
+ENV PATH=${PATH}:/opt/senzing/g2/python:/opt/IBM/db2/clidriver/adm:/opt/IBM/db2/clidriver/bin
+ENV PYTHONPATH=/opt/senzing/g2/python
+ENV PYTHONUNBUFFERED=1
+ENV SENZING_DOCKER_LAUNCHED=true
+ENV SENZING_ETC_PATH=/etc/opt/senzing
+ENV SENZING_SKIP_DATABASE_PERFORMANCE_TEST=true
+ENV SENZING_SSHD_SHOW_PERFORMANCE_WARNING=true
+ENV TERM=xterm
 
 # Make non-root container.
 
@@ -85,4 +153,3 @@ USER 1001
 WORKDIR /app
 ENTRYPOINT [ "node" ]
 CMD ["./run/xterm"]
-#CMD ["/app/sleep-infinity.sh"]
