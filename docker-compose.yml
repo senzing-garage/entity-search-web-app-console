@@ -59,7 +59,7 @@ services:
       AWS_REGION: ${AWS_REGION}
       AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
       SENZING_SQS_QUEUE_URL: ${SENZING_SQS_QUEUE_URL}
-    image: senzing/senzing-poc-server:${SENZING_DOCKER_IMAGE_VERSION_SENZING_POC_SERVER:-3.0.1}
+    image: senzing/senzing-poc-server:${SENZING_DOCKER_IMAGE_VERSION_SENZING_POC_SERVER:-latest}
     networks:
       - sz-api-network
     ports:
