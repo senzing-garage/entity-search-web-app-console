@@ -13,8 +13,8 @@ The default behavior when running `docker run` is for the container to spin up a
 
 The following software programs need to be installed:
 
-1. [docker](https://github.com/Senzing/knowledge-base/blob/master/HOWTO/install-docker.md)
-2. [docker-compose](https://github.com/Senzing/knowledge-base/blob/master/HOWTO/install-docker-compose.md)
+1. [docker](https://github.com/Senzing/knowledge-base/blob/main/HOWTO/install-docker.md)
+2. [docker-compose](https://github.com/Senzing/knowledge-base/blob/main/HOWTO/install-docker-compose.md)
 
 ### Pull latest docker images
 
@@ -44,7 +44,7 @@ The following software programs need to be installed:
 Obviously if your deployment environment is highly restricted you're probably going
 to run in to issues downloading the latest images from that context.
 Please refer to
-"[Install docker image in an air-gapped environment](https://github.com/Senzing/knowledge-base/blob/master/HOWTO/install-docker-image-in-air-gapped-enviroment.md)"
+"[Install docker image in an air-gapped environment](https://github.com/Senzing/knowledge-base/blob/main/HOWTO/install-docker-image-in-air-gapped-enviroment.md)"
 for how to procedure regarding this use-case.
 
 The short version is find a machine with network access, then:
