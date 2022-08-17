@@ -9,6 +9,8 @@ const { getPathFromUrl } = require("../utils");
 const inMemoryConfig = require("../runtime.datastore");
 const inMemoryConfigFromInputs = require('../runtime.datastore.config');
 const runtimeOptions = new inMemoryConfig(inMemoryConfigFromInputs, true);
+const HealthCheckUtility = require("../health");
+const healthChecker = new HealthCheckUtility(runtimeOptions);
 
 // grab env/cmdline vars
 // web server config
@@ -24,6 +26,25 @@ const app     = express();
 const server  = http.Server(app);
 
 if(consoleOptions && consoleOptions.enabled) {
+// ----------------- start config endpoints -----------------
+  let _confBasePath = '';
+  if(runtimeOptions.config && 
+    runtimeOptions.config.web && 
+    runtimeOptions.config.web.path && runtimeOptions.config.web.path !== '/') {
+      _confBasePath = runtimeOptions.config.web.path;
+  }
+  // adds a "/health" path for checking the status of 
+  // relevant operation status
+  app.get(_confBasePath+'/health', (req, res, next) => {
+    let currentStatus = healthChecker.status;
+    let retCode = 500;
+    if(currentStatus && Object.values(currentStatus)){
+        let allHealthy = Object.values(currentStatus).every((value) => value);
+        retCode = allHealthy ? 200 : 503;
+    }
+    res.status(retCode).json( currentStatus );
+  });
+  // part where we start the actual server up
   server.listen(consoleOptions.port, function() {
     console.log("[started ] Xterm Socket Server on port ", consoleOptions.port);
     const socketService = new SocketService();
