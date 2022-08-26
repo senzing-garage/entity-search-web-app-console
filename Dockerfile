@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=debian:11.3-slim@sha256:f75d8a3ac10acdaa9be6052ea5f28bcfa56015ff02298831994bd3e6d66f7e57
+ARG BASE_IMAGE=senzing/senzingapi-tools:3.2.0
 
 # -----------------------------------------------------------------------------
 # Stage: builder
@@ -8,7 +8,7 @@ FROM ${BASE_IMAGE} AS builder
 
 # Set Shell to use for RUN commands in builder step.
 
-ENV REFRESHED_AT=2022-05-09
+ENV REFRESHED_AT=2022-08-25
 
 LABEL Name="senzing/entity-search-web-app-console" \
       Maintainer="support@senzing.com" \
@@ -52,7 +52,7 @@ RUN mkdir /tmp/fio \
 
 FROM ${BASE_IMAGE} AS runner
 
-ENV REFRESHED_AT=2022-05-09
+ENV REFRESHED_AT=2022-08-25
 
 LABEL Name="senzing/entity-search-web-app-console" \
       Maintainer="support@senzing.com" \
