@@ -1,6 +1,6 @@
 {
   "name": "@senzing/entity-search-web-app-console",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A nodejs websocket server that spawns a PTY to provide shell access to EDA Tools and utilities",
   "main": "run xterm/index.js",
   "scripts": {
