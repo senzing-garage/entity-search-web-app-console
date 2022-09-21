@@ -13,6 +13,8 @@ FROM ${BASE_BUILDER_IMAGE} AS builder
 
 # Set Shell to use for RUN commands in builder step.
 
+ENV REFRESHED_AT=2022-08-29
+
 # Run as "root" for system installation.
 
 USER root
@@ -40,6 +42,8 @@ COPY package-lock.json /app/package-lock.json
 
 # Install packages via apt for building fio.
 
+ENV DEBIAN_FRONTEND noninteractive
+
 RUN apt-get update \
  && apt-get -y install \
       gcc \
@@ -47,15 +51,15 @@ RUN apt-get update \
       pkg-config \
       unzip \
       wget \
-      && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/*
 
 # Work around until Debian repos catch up to modern versions of fio.
 
 RUN mkdir /tmp/fio \
  && cd /tmp/fio \
- && wget https://github.com/axboe/fio/archive/refs/tags/fio-3.27.zip \
- && unzip fio-3.27.zip \
- && cd fio-fio-3.27/ \
+ && wget https://github.com/axboe/fio/archive/refs/tags/fio-3.30.zip \
+ && unzip fio-3.30.zip \
+ && cd fio-fio-3.30/ \
  && ./configure \
  && make \
  && make install \
@@ -87,6 +91,8 @@ USER root
 
 # Install packages via apt.
 
+ENV DEBIAN_FRONTEND noninteractive
+
 RUN apt-get update \
  && apt-get -y install \
       elvis-tiny \
@@ -102,10 +108,12 @@ RUN apt-get update \
       python3-pip \
       strace \
       tree \
+      unixodbc-dev \
       unzip \
       wget \
       zip \
- && apt-get clean
+ && rm -rf /var/lib/apt/lists/*
+
 
 # Install Nodejs
 RUN apt-get -y install curl software-properties-common \
