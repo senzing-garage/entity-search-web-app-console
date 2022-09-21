@@ -106,10 +106,10 @@ RUN apt-get update \
       procps \
       python3-dev \
       python3-pip \
+      python3-pyodbc \
       software-properties-common \
       strace \
       tree \
-      unixodbc-dev \
       unzip \
       wget \
       zip \
