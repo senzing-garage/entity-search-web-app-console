@@ -95,7 +95,6 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
  && apt-get -y install \
-      curl \
       elvis-tiny \
       htop \
       iotop \
@@ -118,7 +117,7 @@ RUN apt-get update \
 
 # Install Nodejs
 
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+RUN wget -q -O - https://deb.nodesource.com/setup_16.x | bash -
 
 RUN apt-get -yq install \
     nodejs \
