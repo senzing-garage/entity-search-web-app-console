@@ -106,26 +106,23 @@ RUN apt-get update \
       procps \
       python3-dev \
       python3-pip \
+      python3-pyodbc \
+      software-properties-common \
       strace \
       tree \
-      unixodbc-dev \
       unzip \
       wget \
       zip \
  && rm -rf /var/lib/apt/lists/*
 
-
 # Install Nodejs
-RUN apt-get -y install curl software-properties-common \
-    && curl -sL https://deb.nodesource.com/setup_16.x | bash -
+
+RUN wget -q -O - https://deb.nodesource.com/setup_16.x | bash -
 
 RUN apt-get -yq install \
     nodejs \
  && npm install -g npm \
  && node -v
-
-# Remove old lists
-RUN rm -rf /var/lib/apt/lists/*
 
 # Install packages via pip.
 
@@ -156,7 +153,8 @@ EXPOSE 5000
 # Make non-root container.
 
 RUN addgroup --gid 1004 consoleusers \
-    && useradd -u 1001 -g 1004 -m senzing -s /bin/bash
+ && useradd -u 1001 -g 1004 -m senzing -s /bin/bash
+
 USER 1001
 
 # Runtime environment variables.
