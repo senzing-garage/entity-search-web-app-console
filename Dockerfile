@@ -3,7 +3,7 @@ ARG BASE_BUILDER_IMAGE=node:lts-buster-slim
 
 ARG IMAGE_NAME="senzing/entity-search-web-app-console"
 ARG IMAGE_MAINTAINER="support@senzing.com"
-ARG IMAGE_VERSION="1.1.3"
+ARG IMAGE_VERSION="1.1.4"
 
 # -----------------------------------------------------------------------------
 # Stage: builder
