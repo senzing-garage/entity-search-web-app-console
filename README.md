@@ -13,8 +13,8 @@ The default behavior when running `docker run` is for the container to spin up a
 
 The following software programs need to be installed:
 
-1. [docker](https://github.com/Senzing/knowledge-base/blob/main/HOWTO/install-docker.md)
-2. [docker-compose](https://github.com/Senzing/knowledge-base/blob/main/HOWTO/install-docker-compose.md)
+1. [docker](https://github.com/Senzing/knowledge-base/blob/main/WHATIS/docker.md)
+2. [docker-compose](https://github.com/Senzing/knowledge-base/blob/main/WHATIS/docker-compose.md)
 
 ### Pull latest docker images
 
