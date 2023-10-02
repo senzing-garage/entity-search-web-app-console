@@ -34,3 +34,4 @@ Thumbs.db
 
 # Sub repos
 /.gitmodules
+.history
