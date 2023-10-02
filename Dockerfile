@@ -121,7 +121,6 @@ RUN wget -q -O - https://deb.nodesource.com/setup_16.x | bash -
 
 RUN apt-get -yq install \
     nodejs \
- && npm install -g npm \
  && node -v
 
 # Install packages via pip.
