@@ -1,5 +1,17 @@
 # entity-search-web-app-console
 
+If you are beginning your journey with
+[Senzing](https://senzing.com/),
+please start with
+[Senzing Quick Start guides](https://docs.senzing.com/quickstart/).
+
+You are in the
+[Senzing Garage](https://github.com/senzing-garage)
+where projects are "tinkered" on.
+Although this GitHub repository may help you understand an approach to using Senzing,
+it's not considered to be "production ready" and is not considered to be part of the Senzing product.
+Heck, it may not even be appropriate for your application of Senzing!
+
 ## Synopsis
 
 The `senzing/entity-search-web-app-console` docker image is used for creating
@@ -13,8 +25,8 @@ The default behavior when running `docker run` is for the container to spin up a
 
 The following software programs need to be installed:
 
-1. [docker](https://github.com/Senzing/knowledge-base/blob/main/WHATIS/docker.md)
-2. [docker-compose](https://github.com/Senzing/knowledge-base/blob/main/WHATIS/docker-compose.md)
+1. [docker](https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/docker.md)
+2. [docker-compose](https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/docker-compose.md)
 
 ### Pull latest docker images
 
@@ -34,7 +46,7 @@ The following software programs need to be installed:
    So if your console server is running on port `2370` it would be `https://mydomain:2730`.
    If you are running behind a virtual path like `/app/console` it would be `https://mydomain:2730/app/console`.
    This variable has to be mirrored in the configuration of the
-   [entity-search-web-app](https://github.com/Senzing/entity-search-web-app) configuration.
+   [entity-search-web-app](https://github.com/senzing-garage/entity-search-web-app) configuration.
    If misconfigured the console functionality will not be available in the UI.
 
 #### Cmdline Switches
@@ -44,7 +56,7 @@ The following software programs need to be installed:
    So if your console server is running on port `2370` it would be `https://mydomain:2730`.
    If you are running behind a virtual path like `/app/console` it would be `https://mydomain:2730/app/console`.
    This variable has to be mirrored in the configuration of the
-   [entity-search-web-app](https://github.com/Senzing/entity-search-web-app) configuration.
+   [entity-search-web-app](https://github.com/senzing-garage/entity-search-web-app) configuration.
    If misconfigured the console functionality will not be available in the UI.
 
 ### Air Gapped Environments
@@ -52,7 +64,7 @@ The following software programs need to be installed:
 Obviously if your deployment environment is highly restricted you're probably going
 to run in to issues downloading the latest images from that context.
 Please refer to
-"[Install docker image in an air-gapped environment](https://github.com/Senzing/knowledge-base/blob/main/HOWTO/install-docker-image-in-air-gapped-enviroment.md)"
+"[Install docker image in an air-gapped environment](https://github.com/senzing-garage/knowledge-base/blob/main/HOWTO/install-docker-image-in-air-gapped-enviroment.md)"
 for how to procedure regarding this use-case.
 
 The short version is find a machine with network access, then:
@@ -95,7 +107,7 @@ for the software container in this Docker image.
 Note that this license does not permit further distribution.
 
 This Docker image may also contain software from the
-[Senzing GitHub community](https://github.com/Senzing/)
+[Senzing GitHub community](https://github.com/senzing-garage/)
 under the
 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 

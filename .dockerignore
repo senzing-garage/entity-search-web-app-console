@@ -39,7 +39,6 @@ CONTRIBUTING.md
 docker-compose.test.yml
 LICENSE
 Makefile
-PULL_REQUEST_TEMPLATE.md
 README.md
 
 # System Files
