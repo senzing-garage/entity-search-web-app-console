@@ -113,6 +113,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added in 0.0.2
 
 - Initial work all done.
-- It functionally works with the [github.com/Senzing/entity-search-web-app](https://github.com/Senzing/entity-search-web-app).
+- It functionally works with the [github.com/Senzing/entity-search-web-app](https://github.com/senzing-garage/entity-search-web-app).
 - When configured properly a new menu option called *Console* shows up in the admin menu.
 - The page embeds a xterm console and the user can execute G2 python tools through the web interface.
