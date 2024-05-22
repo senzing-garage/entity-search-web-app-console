@@ -1,9 +1,9 @@
-ARG BASE_IMAGE=senzing/senzingapi-tools:3.9.0
+ARG BASE_IMAGE=senzing/senzingapi-tools:3.10.1
 ARG BASE_BUILDER_IMAGE=node:lts-buster-slim
 
 ARG IMAGE_NAME="senzing/entity-search-web-app-console"
 ARG IMAGE_MAINTAINER="support@senzing.com"
-ARG IMAGE_VERSION="1.1.6"
+ARG IMAGE_VERSION="1.1.7"
 
 # -----------------------------------------------------------------------------
 # Stage: builder
@@ -13,7 +13,7 @@ FROM ${BASE_BUILDER_IMAGE} AS builder
 
 # Set Shell to use for RUN commands in builder step.
 
-ENV REFRESHED_AT=2024-03-18
+ENV REFRESHED_AT=2024-05-22
 
 # Run as "root" for system installation.
 
@@ -45,27 +45,27 @@ COPY package-lock.json /app/package-lock.json
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
- && apt-get -y install \
-      gcc \
-      make \
-      pkg-config \
-      unzip \
-      wget \
- && rm -rf /var/lib/apt/lists/*
+  && apt-get -y install \
+  gcc \
+  make \
+  pkg-config \
+  unzip \
+  wget \
+  && rm -rf /var/lib/apt/lists/*
 
 # Work around until Debian repos catch up to modern versions of fio.
 
 RUN mkdir /tmp/fio \
- && cd /tmp/fio \
- && wget https://github.com/axboe/fio/archive/refs/tags/fio-3.30.zip \
- && unzip fio-3.30.zip \
- && cd fio-fio-3.30/ \
- && ./configure \
- && make \
- && make install \
- && fio --version \
- && cd \
- && rm -rf /tmp/fio
+  && cd /tmp/fio \
+  && wget https://github.com/axboe/fio/archive/refs/tags/fio-3.30.zip \
+  && unzip fio-3.30.zip \
+  && cd fio-fio-3.30/ \
+  && ./configure \
+  && make \
+  && make install \
+  && fio --version \
+  && cd \
+  && rm -rf /tmp/fio
 
 # -----------------------------------------------------------------------------
 # Stage: Final
@@ -75,11 +75,11 @@ RUN mkdir /tmp/fio \
 
 FROM ${BASE_IMAGE} AS runner
 
-ENV REFRESHED_AT=2024-03-18
+ENV REFRESHED_AT=2024-05-22
 
 LABEL Name=${IMAGE_NAME} \
-      Maintainer=${IMAGE_MAINTAINER} \
-      Version=${IMAGE_VERSION}
+  Maintainer=${IMAGE_MAINTAINER} \
+  Version=${IMAGE_VERSION}
 
 # Define health check.
 
@@ -94,41 +94,41 @@ USER root
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
- && apt-get -y install \
-      elvis-tiny \
-      htop \
-      iotop \
-      jq \
-      less \
-      net-tools \
-      openssh-server \
-      postgresql-client \
-      procps \
-      python3-dev \
-      python3-pip \
-      python3-pyodbc \
-      software-properties-common \
-      strace \
-      tree \
-      unzip \
-      wget \
-      zip \
- && rm -rf /var/lib/apt/lists/*
+  && apt-get -y install \
+  elvis-tiny \
+  htop \
+  iotop \
+  jq \
+  less \
+  net-tools \
+  openssh-server \
+  postgresql-client \
+  procps \
+  python3-dev \
+  python3-pip \
+  python3-pyodbc \
+  software-properties-common \
+  strace \
+  tree \
+  unzip \
+  wget \
+  zip \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install Nodejs
 
 RUN wget -q -O - https://deb.nodesource.com/setup_16.x | bash -
 
 RUN apt-get -yq install \
-    nodejs \
- && node -v
+  nodejs \
+  && node -v
 
 # Install packages via pip.
 
 COPY requirements.txt .
 RUN pip3 install --upgrade pip \
- && pip3 install -r requirements.txt \
- && rm /requirements.txt
+  && pip3 install -r requirements.txt \
+  && rm /requirements.txt
 
 # Copy files from repository.
 
@@ -152,15 +152,15 @@ EXPOSE 5000
 # Make non-root container.
 
 RUN addgroup --gid 1004 consoleusers \
- && useradd -u 1001 -g 1004 -m senzing -s /bin/bash
+  && useradd -u 1001 -g 1004 -m senzing -s /bin/bash
 
 USER 1001
 
 # Runtime environment variables.
 
 ENV LC_ALL=C.UTF-8 \
-    LC_CTYPE=C.UTF-8 \
-    SENZING_SSHD_SHOW_PERFORMANCE_WARNING=true
+  LC_CTYPE=C.UTF-8 \
+  SENZING_SSHD_SHOW_PERFORMANCE_WARNING=true
 
 # Runtime execution.
 WORKDIR /app
