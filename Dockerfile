@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=senzing/senzingapi-tools:3.10.1
+ARG BASE_IMAGE=senzing/senzingapi-tools:3.10.3
 ARG BASE_BUILDER_IMAGE=node:lts-buster-slim
 
 ARG IMAGE_NAME="senzing/entity-search-web-app-console"
@@ -13,7 +13,7 @@ FROM ${BASE_BUILDER_IMAGE} AS builder
 
 # Set Shell to use for RUN commands in builder step.
 
-ENV REFRESHED_AT=2024-05-22
+ENV REFRESHED_AT=2024-06-24
 
 # Run as "root" for system installation.
 
@@ -75,7 +75,7 @@ RUN mkdir /tmp/fio \
 
 FROM ${BASE_IMAGE} AS runner
 
-ENV REFRESHED_AT=2024-05-22
+ENV REFRESHED_AT=2024-06-24
 
 LABEL Name=${IMAGE_NAME} \
   Maintainer=${IMAGE_MAINTAINER} \
