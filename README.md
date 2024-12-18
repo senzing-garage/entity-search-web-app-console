@@ -1,5 +1,11 @@
 # entity-search-web-app-console
 
+## :no_entry: Deprecated
+
+The use of a console has been discontinued.
+
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 If you are beginning your journey with
 [Senzing](https://senzing.com/),
 please start with
