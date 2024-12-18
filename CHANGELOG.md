@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -
 
+## [1.1.9] - 2024-12-18
+
+- Final release before archiving
+
+### Changed in 1.1.8
+
 ## [1.1.8] - 2024-06-24
 
 ### Changed in 1.1.8
