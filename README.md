@@ -2,7 +2,7 @@
 
 ## :no_entry: Deprecated
 
-The use of a console has been discontinued.
+The use of this console has been discontinued.
 
 [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
